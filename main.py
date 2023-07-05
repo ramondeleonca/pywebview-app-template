@@ -50,6 +50,11 @@ def connect(sid, environ):
 def disconnect(sid):
     print('disconnect ', sid)
 
+#! SocketIO message event
+@sio.on("message")
+def on_message(sid, event, data):
+    print(f'Message from {sid}: ', data)
+
 #! Start function
 def main():
     aiohttp.web.run_app(app, port=sio_port)

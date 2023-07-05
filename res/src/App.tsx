@@ -6,11 +6,15 @@ import useServer from './hooks/useServer'
 
 function App() {
   const [count, setCount] = useState(0)
-  const { connected } = useServer();
+  const { server, connected } = useServer();
 
   useEffect(() => {
     console.log(connected ? "Connected to Python server" : "Connecting to Python server...")
   }, [connected])
+
+  useEffect(() => {
+    server.send("message", { count })
+  }, [count])
 
   return (
     <>
