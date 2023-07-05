@@ -1,18 +1,16 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { io } from 'socket.io-client'
+import useServer from './hooks/useServer'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [connected, setConnected] = useState(false)
-  const socket = useMemo(() => io('http://localhost:8080'), [])
+  const { connected } = useServer();
 
-  socket.on("connect", () => {
-    console.log("Connected to Python server!")
-    setConnected(true)
-  })
+  useEffect(() => {
+    console.log(connected ? "Connected to Python server" : "Connecting to Python server...")
+  }, [connected])
 
   return (
     <>
